@@ -1,9 +1,9 @@
 import React from 'react';
 import Square from './square';
 
-const Board = (): JSX.Element => {
-    const [squares, setSquares] = React.useState(Array(9).fill(null));
-    const [xTurn, setXTurn] = React.useState(true);
+const Board = ({nextMove, xTurn, squares} : {nextMove: any, xTurn: boolean, squares: Array<null | string>}): JSX.Element => {
+    // const [squares, setSquares] = React.useState(Array(9).fill(null));
+    // const [xTurn, setXTurn] = React.useState(true);
 
     const handleClick = (i: number) => {
         if (squares[i] || calculateWinner(squares)) {
@@ -16,8 +16,9 @@ const Board = (): JSX.Element => {
         else {
             squaresCopy[i] = "O";
         }
-        setSquares(squaresCopy);
-        setXTurn(!xTurn);
+        // setSquares(squaresCopy);
+        nextMove(squaresCopy);
+        // setXTurn(!xTurn);
     }
 
     const winner = calculateWinner(squares);
@@ -37,7 +38,7 @@ const Board = (): JSX.Element => {
             [1, 4, 7],
             [2, 5, 8],
             [0, 4, 8],
-            [2, 4, 6]
+            [2, 4, 6]  
         ];
         for (let i = 0; i < lines.length; i++) {
             const [a, b, c] = lines[i];
